@@ -53,7 +53,7 @@
 
     function playAudio(clip) {
         if(audioElement != null) audioElement.pause();
-        audioElement = new Audio('/'+ meta.root + '/audio/' + clip + '.mp3');
+        audioElement = new Audio('/storybook/'+ meta.root + '/audio/' + clip + '.mp3');
         audioElement.load();   
         audioElement.play();    
     }
