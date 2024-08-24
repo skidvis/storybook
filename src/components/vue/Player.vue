@@ -1,7 +1,7 @@
 <template>
     <div v-if="currentPage != null" class="flex justify-center items-center flex-col md:flex-row">
         <div class="min-w-min">
-            <img :src="'/'+ meta.root + '/' + currentPage.file" alt="" class="m-auto">
+            <img :src="'/storybook/'+ meta.root + '/' + currentPage.file" alt="" class="m-auto">
         </div>
         <div class="p-1 max-w-md">
             <ul>
