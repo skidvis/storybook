@@ -286,7 +286,7 @@ const data = [
     "captions": ["...Besides, he can always try again later. END."],
     "choices": [
       {
-        "text": "The",
+        "text": "Next",
         "url": "bad"
       }
     ]
