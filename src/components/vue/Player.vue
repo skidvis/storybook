@@ -11,14 +11,14 @@
                     <img :src="'/'+ meta.root + '/' + currentPage.file" :key="currentPage.file" alt="" class="m-auto">         
                 </div>
                 <div class="p-0 max-w-md">
-                    <ul>
-                        <li v-for="caption in currentPage.captions" :key="caption" class="p-2 m-2 md:mt-0 border border-slate-50 rounded-lg bg-slate-300 font-medium shadow-md shadow-slate-600">{{ caption }}</li>
+                    <ul class="comic-bold">
+                        <li v-for="caption in currentPage.captions" :key="caption" class="p-2 m-2 md:mt-0 border border-slate-800 rounded-lg bg-slate-300 font-medium shadow-md shadow-slate-600">{{ caption }}</li>
                     </ul>
                 </div>
             </div>
             <ul class="flex justify-center items-center p-3 gap-3">
                 <li v-for="choice in currentPage.choices" class="flex">
-                    <button @click="nextPage(choice.url)" class="border-2 p-1 m-auto bg-lime-700 hover:bg-lime-800 font-bold text-white rounded-md min-w-36">{{ choice.text }}</button>
+                    <button @click="nextPage(choice.url)" class="border-2 border-lime-800 p-1 m-auto bg-lime-700 hover:bg-lime-800 font-bold text-white rounded-md min-w-36 shadow-sm shadow-lime-900 sha">{{ choice.text }}</button>
                 </li>
             </ul>              
         </div>
