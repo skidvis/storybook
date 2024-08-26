@@ -1,30 +1,38 @@
 <template>
-    <div v-if="currentPage != null" class="flex justify-center items-center flex-col md:flex-row">
-        <div>            
-            <img :src="'/'+ meta.root + '/' + currentPage.file" :key="currentPage.file" alt="" class="m-auto">         
-        </div>
-        <div class="p-1 max-w-md">
-            <ul>
-                <li v-for="caption in currentPage.captions" :key="caption" class="p-1 m-2 border border-yellow-50 rounded-lg bg-yellow-100 font-medium">{{ caption }}</li>
-            </ul>
+    <div class=" grid grid-cols-2 md:grid-cols-4 bg-slate-300">
+        <div class="font-bold text-center p-1 min-w-36">MazeReader</div>            
+        <div class="font-bold text-center p-1 min-w-36">{{meta.title}}</div>            
+        <div class="font-bold text-center p-1 min-w-36" title="Good Endings">Good: <span>{{ goodEndings.length }}</span>/{{meta.goodEndings}}</div>            
+        <div class="font-bold text-center p-1 min-w-36" title="Bad Endings">Bad: <span>{{ badEndings.length }}</span>/{{meta.badEndings}}</div>
+    </div>  
+    <div class="">
+        <div :ref="currentPage.id" :key="currentPage.id" class="">
+            <div v-if="currentPage != null" class="flex justify-center flex-col md:flex-row p-2">
+                <div>            
+                    <img :src="'/'+ meta.root + '/' + currentPage.file" :key="currentPage.file" alt="" class="m-auto">         
+                </div>
+                <div class="p-0 max-w-md">
+                    <ul>
+                        <li v-for="caption in currentPage.captions" :key="caption" class="p-2 m-2 mt-0 border border-slate-50 rounded-lg bg-slate-300 font-medium shadow-md shadow-slate-600">{{ caption }}</li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="flex justify-center items-center p-3 gap-3">
+                <li v-for="choice in currentPage.choices" class="flex">
+                    <button @click="nextPage(choice.url)" class="border-2 p-1 m-auto bg-lime-700 hover:bg-lime-800 font-bold text-white rounded-md min-w-36">{{ choice.text }}</button>
+                </li>
+            </ul>              
         </div>
     </div>
-    <ul class="flex justify-center items-center p-3 gap-3">
-        <li v-for="choice in currentPage.choices" class="flex">
-            <button @click="nextPage(choice.url)" class="border-2 p-1 m-auto bg-lime-700 hover:bg-lime-800 font-bold text-white rounded-md min-w-36">{{ choice.text }}</button>
-        </li>
-    </ul>
-    <div class="m-3 p-3 grid grid-flow-col rounded-md bg-slate-300">
-        <div class="font-bold text-center p-1 min-w-36">Good Endings Discovered: {{ goodEndingsFound }}/{{meta.goodEndings}}</div>
-        <div class="font-bold text-center p-1 min-w-36">Bad Endings Discovered: {{ badEndingsFound }}/{{meta.badEndings}}</div>
-    </div>    
 </template>
 
 <script setup>
+    //imports
     import {meta, data} from '../../data/skat1/info.js';
     import { ref } from 'vue';
+    import { gsap } from 'gsap';
 
-    const images = ref([]);
+    //variables
     const currentPage = ref(null);
     const blank = {
         file: meta.cover,
@@ -37,35 +45,40 @@
         ]
     }    
     let audioElement = null;
-    let goodEndingsFound = 0;
-    let badEndingsFound = 0;
+    let goodEndings = [];
+    let badEndings = [];
     // countBadEndings();
 
     if(data) currentPage.value = blank;
 
-    function nextPage(url){        
-        if(url === 'winner') goodEndingsFound++;
-        if(url === 'bad') badEndingsFound++;
+    //methods
+    const nextPage = (url)=>{        
+        if(url === 'winner' && !goodEndings.includes(currentPage.value.id)) {
+            goodEndings.push(currentPage.value.id);
+        }
+        if(url === 'bad' && !badEndings.includes(currentPage.value.id)) {
+            badEndings.push(currentPage.value.id);
+        }
         if(url === 'bad' || url === 'winner') url = 'a0';
-        const result = data.find(item => item.id === url);
-        currentPage.value = result;
-        playAudio(result.id);
+        const nextPageFound = data.find(item => item.id === url);
+        currentPage.value = nextPageFound;
+        //playAudio(result.id);
     }
 
-    function playAudio(clip) {
+    const playAudio = (clip)=>{
         if(audioElement != null) audioElement.pause();
         audioElement = new Audio('/'+ meta.root + '/audio/' + clip + '.mp3');
         audioElement.load();   
         audioElement.play();    
     }
 
-    function countBadEndings(){
+    const countBadEndings = ()=>{
         data.forEach(element => {
             // element.choices.forEach(choice => {
             //     if(choice.url === 'bad') meta.badEndings++;
             //     if(choice.url === 'winner') meta.goodEndings++;
             // })
-            images.value.push('/' + meta.root + '/' + element.file);
+            // images.value.push('/' + meta.root + '/' + element.file);
         });
     }
 </script>
@@ -73,7 +86,7 @@
 <style>    
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.1s ease;
   position: absolute;
 }
 

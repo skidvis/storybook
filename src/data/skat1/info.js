@@ -1,4 +1,5 @@
 const meta = {
+  "title": "Skat, The Ninja Cat: Issue 1",
   "root": "skat1",
   "cover": "a0.gif",
   "badEndings": 7,
