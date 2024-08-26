@@ -63,7 +63,7 @@
         }
         if(url === 'bad' || url === 'winner') {            
             url = 'a0';
-            gtm.trackEvent({
+            window.dataLayer?.push({
                 event: 'book_end',
                 page_title: meta.title,
                 event_category: 'book_end', 
