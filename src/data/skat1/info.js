@@ -5,7 +5,7 @@ const meta = {
   "badEndings": 7,
   "goodEndings": 1,
   "description": [
-    "Step into the shadows with Skat, the Ninja Cat.",
+    "Step into the shadows with Skat, The Ninja Cat.",
     "In this world of ninja cats and cunning foes, nothing is as it seems. Will you choose stealth or strength? Loyalty or survival? Each decision could spell the difference between glory and doom. As you navigate this pulse-pounding journey, you'll find yourself entangled in a web of betrayal, friendship, and deadly consequences. The fate of Skat, the ShadowBlades, and perhaps the entire world rests in your hands. Are you ready to step into the shadows and uncover the twisting paths that await?"
   ]
 }
