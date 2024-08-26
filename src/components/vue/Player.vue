@@ -62,7 +62,7 @@
         }
         if(url === 'bad' || url === 'winner') {            
             url = 'a0';
-            window.dataLayer?.push({
+            window.dataLayer.push({
                 event: 'book_end',
                 page_title: meta.title,
                 event_category: 'book_end', 
@@ -72,7 +72,7 @@
         }
         const nextPageFound = data.find(item => item.id === url);
         currentPage.value = nextPageFound;
-        playAudio(result.id);
+        playAudio(nextPageFound.id);
     }
 
     const playAudio = (clip)=>{
