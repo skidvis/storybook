@@ -1,5 +1,5 @@
 <template>
-    <div class=" grid grid-cols-2 md:grid-cols-3 bg-slate-300">        
+    <div class=" grid grid-cols-2 md:grid-cols-3 bg-slate-300 shadow-md shadow-slate-700 mb-1">        
         <div class="font-bold text-center p-1 min-w-36 col-span-2 md:col-span-1">{{meta.title}}</div>        
         <div class="font-bold text-center p-1 min-w-36" title="Good Endings">Good: <span>{{ goodEndings.length }}</span>/{{meta.goodEndings}}</div>            
         <div class="font-bold text-center p-1 min-w-36" title="Bad Endings">Bad: <span>{{ badEndings.length }}</span>/{{meta.badEndings}}</div>
@@ -12,7 +12,7 @@
                 </div>
                 <div class="p-0 max-w-md">
                     <ul>
-                        <li v-for="caption in currentPage.captions" :key="caption" class="p-2 m-2 mt-0 border border-slate-50 rounded-lg bg-slate-300 font-medium shadow-md shadow-slate-600">{{ caption }}</li>
+                        <li v-for="caption in currentPage.captions" :key="caption" class="p-2 m-2 md:mt-0 border border-slate-50 rounded-lg bg-slate-300 font-medium shadow-md shadow-slate-600">{{ caption }}</li>
                     </ul>
                 </div>
             </div>
