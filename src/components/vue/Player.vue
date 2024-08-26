@@ -61,7 +61,6 @@
             badEndings.push(currentPage.value.id);
         }
         if(url === 'bad' || url === 'winner') {            
-            url = 'a0';
             window.dataLayer.push({
                 event: 'book_end',
                 page_title: meta.title,
@@ -69,6 +68,7 @@
                 event_type: url,
                 event_label: currentPage.value.id 
             });
+            url = 'a0';
         }
         const nextPageFound = data.find(item => item.id === url);
         currentPage.value = nextPageFound;
