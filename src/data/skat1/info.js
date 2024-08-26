@@ -5,8 +5,8 @@ const meta = {
   "badEndings": 7,
   "goodEndings": 1,
   "description": [
-    "Step into the shadows with Skat, a skilled warrior of the enigmatic ShadowBlades - a clan of ninja cats shrouded in secrecy. When Skat's childhood friend Strix, a bunny raised among the felines, hands him a mysterious scroll, it sets in motion a thrilling adventure that will test his loyalty, skills, and very survival. From the corridors of power to the savage lands of the wolf tribe, your choices will guide Skat through a maze of political intrigue, fierce battles, and the hunt for the elusive Gemini Crystal.",    
-    "But in this world of ninja cats and cunning foes, nothing is as it seems. Will you choose stealth or strength? Loyalty or survival? Each decision could spell the difference between glory and doom. As you navigate this pulse-pounding journey, you'll find yourself entangled in a web of betrayal, friendship, and deadly consequences. The fate of Skat, the ShadowBlades, and perhaps the entire world rests in your hands. Are you ready to step into the shadows and uncover the twisting paths that await?"
+    "Step into the shadows with Skat, the Ninja Cat.",
+    "In this world of ninja cats and cunning foes, nothing is as it seems. Will you choose stealth or strength? Loyalty or survival? Each decision could spell the difference between glory and doom. As you navigate this pulse-pounding journey, you'll find yourself entangled in a web of betrayal, friendship, and deadly consequences. The fate of Skat, the ShadowBlades, and perhaps the entire world rests in your hands. Are you ready to step into the shadows and uncover the twisting paths that await?"
   ]
 }
 
