@@ -68,7 +68,8 @@
                 event_type: url,
                 event_label: currentPage.value.id 
             });
-            url = 'a0';
+            currentPage.value = blank;
+            return;
         }
         const nextPageFound = data.find(item => item.id === url);
         currentPage.value = nextPageFound;
