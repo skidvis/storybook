@@ -59,7 +59,15 @@
         if(url === 'bad' && !badEndings.includes(currentPage.value.id)) {
             badEndings.push(currentPage.value.id);
         }
-        if(url === 'bad' || url === 'winner') url = 'a0';
+        if(url === 'bad' || url === 'winner') {            
+            url = 'a0';
+            gtag('event', 'book_end', { 
+                'page_title': currentPage.meta.title,
+                'event_category': 'book_end', 
+                'event_type': url,
+                'event_label': currentPage.value.id 
+            });
+        }
         const nextPageFound = data.find(item => item.id === url);
         currentPage.value = nextPageFound;
         //playAudio(result.id);
