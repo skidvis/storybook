@@ -65,7 +65,7 @@
             url = 'a0';
             gtm.trackEvent({
                 event: 'book_end',
-                page_title: currentPage.meta.title,
+                page_title: meta.title,
                 event_category: 'book_end', 
                 event_type: url,
                 event_label: currentPage.value.id 
