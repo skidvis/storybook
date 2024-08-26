@@ -1,7 +1,6 @@
 <template>
-    <div class=" grid grid-cols-2 md:grid-cols-4 bg-slate-300">
-        <div class="font-bold text-center p-1 min-w-36">MazeReader</div>            
-        <div class="font-bold text-center p-1 min-w-36">{{meta.title}}</div>            
+    <div class=" grid grid-cols-2 md:grid-cols-3 bg-slate-300">        
+        <div class="font-bold text-center p-1 min-w-36 col-span-2 md:col-span-1">{{meta.title}}</div>        
         <div class="font-bold text-center p-1 min-w-36" title="Good Endings">Good: <span>{{ goodEndings.length }}</span>/{{meta.goodEndings}}</div>            
         <div class="font-bold text-center p-1 min-w-36" title="Bad Endings">Bad: <span>{{ badEndings.length }}</span>/{{meta.badEndings}}</div>
     </div>  
@@ -73,7 +72,7 @@
         }
         const nextPageFound = data.find(item => item.id === url);
         currentPage.value = nextPageFound;
-        //playAudio(result.id);
+        playAudio(result.id);
     }
 
     const playAudio = (clip)=>{
