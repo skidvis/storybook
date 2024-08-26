@@ -28,11 +28,13 @@
 
 <script setup>
     //imports
+    import { useGtm } from '@gtm-support/vue-gtm';
     import {meta, data} from '../../data/skat1/info.js';
     import { ref } from 'vue';
     import { gsap } from 'gsap';
 
     //variables
+    const gtm = useGtm();
     const currentPage = ref(null);
     const blank = {
         file: meta.cover,
@@ -61,11 +63,12 @@
         }
         if(url === 'bad' || url === 'winner') {            
             url = 'a0';
-            gtag('event', 'book_end', { 
-                'page_title': currentPage.meta.title,
-                'event_category': 'book_end', 
-                'event_type': url,
-                'event_label': currentPage.value.id 
+            gtm.trackEvent({
+                event: 'book_end',
+                page_title: currentPage.meta.title,
+                event_category: 'book_end', 
+                event_type: url,
+                event_label: currentPage.value.id 
             });
         }
         const nextPageFound = data.find(item => item.id === url);
