@@ -18,7 +18,7 @@
             </div>
             <ul class="flex justify-center items-center p-3 gap-3">
                 <li v-for="choice in currentPage.choices" class="flex">
-                    <button @click="nextPage(choice.url)" class="border-2 border-lime-800 hover:border-lime-900 p-1 m-auto bg-lime-700 hover:bg-lime-800 font-bold text-white rounded-md min-w-36 shadow-sm shadow-lime-900 sha">{{ choice.text }}</button>
+                    <button @click="nextPage(choice.url)" :id="'button-' + choice.url" class="action-button border-2 border-lime-800 hover:border-lime-900 p-1 m-auto bg-lime-700 hover:bg-lime-800 font-bold text-white rounded-md min-w-36 shadow-sm shadow-lime-900 sha">{{ choice.text }}</button>
                 </li>
             </ul>
         </div>
@@ -83,16 +83,6 @@
         audioElement = new Audio('/' + meta.root + '/audio/' + clip + '.mp3');
         audioElement.load();
         audioElement.play();
-    }
-
-    const countBadEndings = () => {
-        data.forEach(element => {
-            // element.choices.forEach(choice => {
-            //     if(choice.url === 'bad') meta.badEndings++;
-            //     if(choice.url === 'winner') meta.goodEndings++;
-            // })
-            // images.value.push('/' + meta.root + '/' + element.file);
-        });
     }
 </script>
 
