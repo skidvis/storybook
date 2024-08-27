@@ -61,13 +61,17 @@
             badEndings.push(currentPage.value.id);
         }
         if (url === 'bad' || url === 'winner') {
-            window.dataLayer.push({
+            try {
+                window.dataLayer.push({
                 event: 'book_end',
                 page_title: meta.title,
                 event_category: 'book_end',
                 event_type: url,
                 event_label: currentPage.value.id
             });
+            } catch (error) {
+               console.log(error); 
+            }
             currentPage.value = blank;
             return;
         }
