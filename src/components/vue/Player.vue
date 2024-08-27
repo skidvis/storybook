@@ -27,13 +27,11 @@
 
 <script setup>
     //imports
-    import { useGtm } from '@gtm-support/vue-gtm';
     import { meta, data } from '../../data/skat1/info.js';
     import { ref } from 'vue';
     import { gsap } from 'gsap';
 
     //variables
-    const gtm = useGtm();
     const currentPage = ref(null);
     const blank = {
         file: meta.cover,
