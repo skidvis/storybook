@@ -63,9 +63,9 @@
             try {
                 event('book_end', { 
                     page_title: meta.title,
-                    event_category: 'book_end',
-                    event_type: url,
-                    event_label: currentPage.value.id
+                    category: 'book_end',
+                    final_result: url,
+                    final_page: currentPage.value.id
                 })
             } catch (error) {
                console.log(error); 
