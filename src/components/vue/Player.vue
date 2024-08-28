@@ -30,6 +30,7 @@
     import { meta, data } from '../../data/skat1/info.js';
     import { ref } from 'vue';
     import { gsap } from 'gsap';
+    import { event } from 'vue-gtag'
 
     //variables
     const currentPage = ref(null);
@@ -60,13 +61,12 @@
         }
         if (url === 'bad' || url === 'winner') {
             try {
-                window.dataLayer.push({
-                event: 'book_end',
-                page_title: meta.title,
-                event_category: 'book_end',
-                event_type: url,
-                event_label: currentPage.value.id
-            });
+                event('book_end', { 
+                    page_title: meta.title,
+                    event_category: 'book_end',
+                    event_type: url,
+                    event_label: currentPage.value.id
+                })
             } catch (error) {
                console.log(error); 
             }

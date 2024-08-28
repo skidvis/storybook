@@ -17,9 +17,6 @@ importers:
       '@astrojs/vue':
         specifier: ^4.5.0
         version: 4.5.0(astro@4.14.5(rollup@4.21.0)(typescript@5.5.4))(rollup@4.21.0)(vite@5.4.2)(vue@3.4.38(typescript@5.5.4))
-      '@gtm-support/vue-gtm':
-        specifier: ^3.1.0
-        version: 3.1.0(vue@3.4.38(typescript@5.5.4))
       astro:
         specifier: ^4.14.5
         version: 4.14.5(rollup@4.21.0)(typescript@5.5.4)
@@ -35,6 +32,9 @@ importers:
       vue:
         specifier: ^3.4.38
         version: 3.4.38(typescript@5.5.4)
+      vue-gtag:
+        specifier: ^2.0.1
+        version: 2.0.1(vue@3.4.38(typescript@5.5.4))
 
 packages:
 
@@ -416,14 +416,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@gtm-support/core@3.0.1':
-    resolution: {integrity: sha512-SctcoqvvAbGAgZzOb7DZ4wjbZF3ZS7Las3qIEByv6g7mzPf4E9LpRXcQzjmywYLcUx2jys7PWJAa3s5slvj/0w==}
-
-  '@gtm-support/vue-gtm@3.1.0':
-    resolution: {integrity: sha512-kGUnCI+Z5lBeCKd7rzgU7UoFU8Q0EkJfh17SgeyAyx8cLdISqeq54BNJKZrME3WXersoigLZVJ1GLs0buYD3lA==}
-    peerDependencies:
-      vue: '>= 3.2.26 < 4.0.0'
-
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
@@ -771,9 +763,6 @@ packages:
 
   '@vue/compiler-ssr@3.4.38':
     resolution: {integrity: sha512-YXznKFQ8dxYpAz9zLuVvfcXhc31FSPFDcqr0kyujbOwNhlmaNvL2QfIy+RZeJgSn5Fk54CWoEUeW+NVBAogGaw==}
-
-  '@vue/devtools-api@6.6.3':
-    resolution: {integrity: sha512-0MiMsFma/HqA6g3KLKn+AGpL1kgKhFWszC9U29NfpWK5LE7bjeXxySWJrOJ77hBz+TBrBQ7o4QJqbPbqbs8rJw==}
 
   '@vue/devtools-core@7.3.8':
     resolution: {integrity: sha512-mEwsR7GMklWuPOBH/++DiJe0GWqQ0syDtWP0HhU8m9tebs5zQtujMXrgu+cgBAKquJAWnBz0PwNzBgBD2P+M9A==}
@@ -2336,10 +2325,10 @@ packages:
   vscode-uri@3.0.8:
     resolution: {integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==}
 
-  vue-router@4.4.3:
-    resolution: {integrity: sha512-sv6wmNKx2j3aqJQDMxLFzs/u/mjA9Z5LCgy6BE0f7yFWMjrPLnS/sPNn8ARY/FXw6byV18EFutn5lTO6+UsV5A==}
+  vue-gtag@2.0.1:
+    resolution: {integrity: sha512-aM4A58FVL0wV2ptYi+xzAjeg+pQVRyUcfBc5UkXAwQrR4t3WBhor50Izp2I+3Oo7+l+vWJ7u78DGcNzReb8S/A==}
     peerDependencies:
-      vue: ^3.2.0
+      vue: ^3.0.0
 
   vue@3.4.38:
     resolution: {integrity: sha512-f0ZgN+mZ5KFgVv9wz0f4OgVKukoXtS3nwET4c2vLBGQR50aI8G0cqbFtLlX9Yiyg3LFGBitruPHt2PxwTduJEw==}
@@ -2862,15 +2851,6 @@ snapshots:
   '@esbuild/win32-x64@0.21.5':
     optional: true
 
-  '@gtm-support/core@3.0.1': {}
-
-  '@gtm-support/vue-gtm@3.1.0(vue@3.4.38(typescript@5.5.4))':
-    dependencies:
-      '@gtm-support/core': 3.0.1
-      vue: 3.4.38(typescript@5.5.4)
-    optionalDependencies:
-      vue-router: 4.4.3(vue@3.4.38(typescript@5.5.4))
-
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:
       '@img/sharp-libvips-darwin-arm64': 1.0.4
@@ -3221,9 +3201,6 @@ snapshots:
     dependencies:
       '@vue/compiler-dom': 3.4.38
       '@vue/shared': 3.4.38
-
-  '@vue/devtools-api@6.6.3':
-    optional: true
 
   '@vue/devtools-core@7.3.8(vite@5.4.2)(vue@3.4.38(typescript@5.5.4))':
     dependencies:
@@ -5131,11 +5108,9 @@ snapshots:
 
   vscode-uri@3.0.8: {}
 
-  vue-router@4.4.3(vue@3.4.38(typescript@5.5.4)):
+  vue-gtag@2.0.1(vue@3.4.38(typescript@5.5.4)):
     dependencies:
-      '@vue/devtools-api': 6.6.3
       vue: 3.4.38(typescript@5.5.4)
-    optional: true
 
   vue@3.4.38(typescript@5.5.4):
     dependencies:

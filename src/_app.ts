@@ -1,9 +1,8 @@
 import type { App } from 'vue';
-import { createGtm } from '@gtm-support/vue-gtm';
+import VueGtag from "vue-gtag";
 
 export default (app: App) => {
-  app.use(createGtm({
-    id: 'GTM-MVTSKJTQ', 
-    debug: true, // Whether or not display console logs debugs (optional)
-  }),);
+  app.use(VueGtag, {
+    config: { id: "G-HVNSLBJ5S7" }
+  });
 };
