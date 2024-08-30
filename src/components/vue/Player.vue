@@ -18,9 +18,12 @@
             </div>
             <ul class="flex justify-center items-center p-3 gap-3">
                 <li v-for="choice in currentPage.choices" class="flex">
-                    <button @click="nextPage(choice.url)" :id="'button-' + choice.url" class="action-button border-2 border-lime-800 hover:border-lime-900 p-1 m-auto bg-lime-700 hover:bg-lime-800 font-bold text-white rounded-md min-w-36 shadow-sm shadow-lime-900 sha">{{ choice.text }}</button>
+                    <button @click="nextPage(choice.url)" :id="'button-' + choice.url" class="action-button border-2 border-lime-800 hover:border-lime-900 p-1 m-auto bg-lime-700 hover:bg-lime-800 font-bold text-white rounded-md min-w-36 shadow-sm shadow-lime-900">{{ choice.text }}</button>
                 </li>
             </ul>
+            <div class="text-center">
+                <button @click="muteAudio()" :title="mute ? 'Unmute' : 'Mute'"><Volume2 v-if="!mute" /><VolumeOff v-if="mute" /></button>
+            </div>
         </div>
     </div>
 </template>
@@ -30,9 +33,11 @@
     import { meta, data } from '../../data/skat1/info.js';
     import { ref } from 'vue';
     import { gsap } from 'gsap';
-    import { event } from 'vue-gtag'
+    import { event } from 'vue-gtag';
+    import { Volume2, VolumeOff } from 'lucide-vue-next';
 
     //variables
+    const mute = ref(false);
     const currentPage = ref(null);
     const blank = {
         file: meta.cover,
@@ -46,7 +51,7 @@
     }
     let audioElement = null;
     let goodEndings = [];
-    let badEndings = [];
+    let badEndings = [];    
     // countBadEndings();
 
     if (data) currentPage.value = blank;
@@ -75,7 +80,14 @@
         }
         const nextPageFound = data.find(item => item.id === url);
         currentPage.value = nextPageFound;
-        playAudio(nextPageFound.id);
+        if(!mute.value) playAudio(nextPageFound.id);
+    }
+
+    const muteAudio = () => {
+        mute.value = !mute.value;
+        if(mute.value) {
+            if (audioElement != null) audioElement.pause();
+        }
     }
 
     const playAudio = (clip) => {
