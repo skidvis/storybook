@@ -4,39 +4,45 @@
         <div class="font-bold text-center p-1 min-w-36" title="Good Endings">Good: <span>{{ goodEndings.length }}</span>/{{meta.goodEndings}}</div>
         <div class="font-bold text-center p-1 min-w-36" title="Bad Endings">Bad: <span>{{ badEndings.length }}</span>/{{meta.badEndings}}</div>
     </div>
-    <div class="">
-        <div :ref="currentPage.id" :key="currentPage.id" class="">
-            <div v-if="currentPage != null" class="flex justify-center flex-col md:flex-row p-2">
-                <div>
-                    <img :src="'/'+ meta.root + '/' + currentPage.file" :key="currentPage.file" alt="" class="m-auto">
-                </div>
-                <div class="p-0 max-w-md">
-                    <ul class="comic-bold">
-                        <li v-for="caption in currentPage.captions" :key="caption" class="p-2 m-2 md:mt-0 border border-slate-800 rounded-lg bg-slate-300 font-medium shadow-md shadow-slate-600">{{ caption }}</li>
+    <div class="overflow-hidden">
+        <Tilt>
+            <div>
+                <div :ref="currentPage.id" :key="currentPage.id" class="">            
+                    <div v-if="currentPage != null" class="flex justify-center flex-col md:flex-row p-2">
+                        <div>
+                            <img  :src="'/'+ meta.root + '/' + currentPage.file" :key="currentPage.file" alt="" class="m-auto" data-tilt data-tilt-full-page-listening>
+                        </div>
+                        <div class="p-0 max-w-md">
+                            <ul class="comic-bold">
+                                <li v-for="caption in currentPage.captions" :key="caption" class="p-2 m-2 md:mt-0 border border-slate-800 rounded-lg bg-slate-300 font-medium shadow-md shadow-slate-600">{{ caption }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <ul class="flex justify-center items-center p-3 gap-3">
+                        <li v-for="choice in currentPage.choices" class="flex">
+                            <button @click="nextPage(choice.url)" :id="'button-' + choice.url" class="action-button border-2 border-lime-800 hover:border-lime-900 p-1 m-auto bg-lime-700 hover:bg-lime-800 font-bold text-white rounded-md min-w-36 shadow-sm shadow-lime-900">{{ choice.text }}</button>
+                        </li>
                     </ul>
+                    <div class="text-center">
+                        <button @click="muteAudio()" :title="mute ? 'Unmute' : 'Mute'"><Volume2 v-if="!mute" /><VolumeOff v-if="mute" /></button>
+                    </div>
                 </div>
-            </div>
-            <ul class="flex justify-center items-center p-3 gap-3">
-                <li v-for="choice in currentPage.choices" class="flex">
-                    <button @click="nextPage(choice.url)" :id="'button-' + choice.url" class="action-button border-2 border-lime-800 hover:border-lime-900 p-1 m-auto bg-lime-700 hover:bg-lime-800 font-bold text-white rounded-md min-w-36 shadow-sm shadow-lime-900">{{ choice.text }}</button>
-                </li>
-            </ul>
-            <div class="text-center">
-                <button @click="muteAudio()" :title="mute ? 'Unmute' : 'Mute'"><Volume2 v-if="!mute" /><VolumeOff v-if="mute" /></button>
-            </div>
-        </div>
+            </div>        
+        </Tilt>        
     </div>
 </template>
 
 <script setup>
     //imports
+    import Tilt from 'vanilla-tilt-vue'
     import { meta, data } from '../../data/skat1/info.js';
-    import { ref } from 'vue';
+    import { ref, onMounted, onBeforeUpdate } from 'vue';
     import { gsap } from 'gsap';
     import { event } from 'vue-gtag';
     import { Volume2, VolumeOff } from 'lucide-vue-next';
 
     //variables
+    const imagex = ref(null);
     const mute = ref(false);
     const currentPage = ref(null);
     const blank = {
@@ -57,6 +63,7 @@
     if (data) currentPage.value = blank;
 
     //methods
+
     const nextPage = (url) => {
         if (url === 'winner' && !goodEndings.includes(currentPage.value.id)) {
             goodEndings.push(currentPage.value.id);
@@ -78,6 +85,9 @@
             currentPage.value = blank;
             return;
         }
+
+        //imagex.value = [];
+
         const nextPageFound = data.find(item => item.id === url);
         currentPage.value = nextPageFound;
         if(!mute.value) playAudio(nextPageFound.id);
