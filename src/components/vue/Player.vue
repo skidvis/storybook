@@ -61,12 +61,12 @@
         }
         if (url === 'bad' || url === 'winner') {
             try {
-                event('book_end', { 
-                    page_title: meta.title,
-                    category: 'book_end',
-                    final_result: url,
-                    final_page: currentPage.value.id
-                })
+                gtag('event', 'book_finished', {                    
+                    'page_title': meta.title,
+                    'category': 'book_end',
+                    'final_result': url,
+                    'final_page': currentPage.value.id
+                });
             } catch (error) {
                console.log(error); 
             }
