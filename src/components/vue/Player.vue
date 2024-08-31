@@ -1,10 +1,10 @@
 <template>
-    <div class=" grid grid-cols-2 md:grid-cols-3 bg-slate-300 shadow-md shadow-slate-700 mb-1">
+    <div v-if="isVisible" class="grid grid-cols-2 md:grid-cols-3 bg-slate-300 shadow-md shadow-slate-700 mb-1">
         <div class="font-bold text-center p-1 min-w-36 col-span-2 md:col-span-1">{{meta.title}}</div>
         <div class="font-bold text-center p-1 min-w-36" title="Good Endings">Good: <span>{{ goodEndings.length }}</span>/{{meta.goodEndings}}</div>
         <div class="font-bold text-center p-1 min-w-36" title="Bad Endings">Bad: <span>{{ badEndings.length }}</span>/{{meta.badEndings}}</div>
     </div>
-    <div class="overflow-hidden">
+    <div v-if="isVisible" class="overflow-hidden">
         <div ref="tilter">
             <div :ref="currentPage.id" :key="currentPage.id" class="">            
                 <div v-if="currentPage != null" class="flex justify-center flex-col md:flex-row p-2">
@@ -32,41 +32,53 @@
 
 <script setup>
     //imports
-    import { meta, data } from '../../data/skat1/info.js';
-    import { ref, onMounted, onBeforeUpdate } from 'vue';
+    // import { meta, data } from '../../data/skat1/info.js';
+    import { ref, onMounted, onUpdated } from 'vue';
     import { gsap } from 'gsap';
     import { event } from 'vue-gtag';
     import { Volume2, VolumeOff } from 'lucide-vue-next';
     import VanillaTilt from 'vanilla-tilt';
 
     //variables
+    let meta, data, blank = null;
+    const props = defineProps({
+        file : String
+    });
     const tilter = ref(null);
     const mute = ref(false);
     const currentPage = ref(null);
-    const blank = {
-        file: meta.cover,
-        captions: meta.description,
-        choices: [
-            {
-                text: 'Begin',
-                url: 'a0'
-            }
-        ]
-    }
+    const isVisible = ref(false);
     let audioElement = null;
     let goodEndings = [];
     let badEndings = [];    
-    // countBadEndings();
-
-    if (data) currentPage.value = blank;
+    // countBadEndings();    
 
     //methods
-    onMounted(() => {
+    onMounted(async() => {        
+        const importMeta = await import(`../../data/${props.file}/info.js`);        
+        ({meta, data} = importMeta);        
+
+        blank = {
+            file: meta.cover,
+            captions: meta.description,
+            choices: [
+                {
+                    text: 'Begin',
+                    url: 'a0'
+                }
+            ]
+        }
+
+        if (data) currentPage.value = blank;
+        isVisible.value = true;
+    })
+
+    onUpdated(() => {
         VanillaTilt.init(tilter.value, {
             max: 20,
             speed: 400
         })
-    })
+    });
 
     const nextPage = (url) => {
         if (url === 'winner' && !goodEndings.includes(currentPage.value.id)) {
