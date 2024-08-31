@@ -37,7 +37,7 @@
                     </li>
                 </ul>
                 <div class="text-center" v-if="meta.hasAudio">
-                    <button @click="muteAudio()" :title="mute ? 'Unmute' : 'Mute'"><Volume2 v-if="!mute" /><VolumeOff v-if="mute" /></button>
+                    <button @click="muteAudio()" :title="mute ? 'Unmute' : 'Mute'" class="text-white"><Volume2 v-if="!mute" /><VolumeOff v-if="mute" /></button>
                 </div>
             </div>
         </div>        
@@ -48,8 +48,6 @@
     //imports
     // import { meta, data } from '../../data/skat1/info.js';
     import { ref, onMounted, onUpdated } from 'vue';
-    import { gsap } from 'gsap';
-    import { event } from 'vue-gtag';
     import { Volume2, VolumeOff } from 'lucide-vue-next';
     import VanillaTilt from 'vanilla-tilt';
 
