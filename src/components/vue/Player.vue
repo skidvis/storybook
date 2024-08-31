@@ -6,7 +6,7 @@
     </div>
     <div v-if="isVisible" class="overflow-hidden">
         <div ref="tilter">
-            <div :ref="currentPage.id" :key="currentPage.id" class="">            
+            <div :ref="currentPage.id" :key="currentPage.id">            
                 <div v-if="currentPage != null" class="flex justify-center flex-col md:flex-row p-2">
                     <div>
                         <img :src="'/'+ meta.root + '/' + currentPage.file" :key="currentPage.file" alt="" class="m-auto" data-tilt data-tilt-full-page-listening>
@@ -16,13 +16,27 @@
                             <li v-for="caption in currentPage.captions" :key="caption" class="p-2 m-2 md:mt-0 border border-slate-800 rounded-lg bg-slate-300 font-medium shadow-md shadow-slate-600">{{ caption }}</li>
                         </ul>
                     </div>
+                    <div v-if="currentPage.id == 'cover'">
+                        <ul class="flex flex-col p-2 text-white">
+                            <li>Written by: <span v-for="author,i in meta.authors" :key="author" class="comic-bold">
+                                <a v-if="author.url" :href="author.url" target="_blank" class="border-b-2 border-dashed border-white">{{ author.name }}</a>
+                                <span v-else>{{ author.name }}</span>
+                                {{i == meta.authors.length - 1 ? '' : ' & '}}
+                            </span></li>
+                            <li>Art by: <span v-for="artist in meta.artists" :key="artist" class="comic-bold">{{ artist.name }}</span></li>
+                            <li>copyright: <span v-for="author in meta.copyright" :key="author" class="comic-bold">
+                                <a v-if="author.url" :href="author.url" target="_blank" class="border-b-2 border-dashed border-white">{{ author.name }}</a>
+                                <span v-else>{{ author.name }}</span>
+                            </span></li>
+                        </ul>                    
+                    </div>                    
                 </div>
                 <ul class="flex justify-center items-center p-3 gap-3">
                     <li v-for="choice in currentPage.choices" class="flex">
                         <button @click="nextPage(choice.url)" :id="'button-' + choice.url" class="action-button border-2 border-lime-800 hover:border-lime-900 p-1 m-auto bg-lime-700 hover:bg-lime-800 font-bold text-white rounded-md min-w-36 shadow-sm shadow-lime-900">{{ choice.text }}</button>
                     </li>
                 </ul>
-                <div class="text-center">
+                <div class="text-center" v-if="meta.hasAudio">
                     <button @click="muteAudio()" :title="mute ? 'Unmute' : 'Mute'"><Volume2 v-if="!mute" /><VolumeOff v-if="mute" /></button>
                 </div>
             </div>
@@ -42,7 +56,7 @@
     //variables
     let meta, data, blank = null;
     const props = defineProps({
-        file : String
+        book : String
     });
     const tilter = ref(null);
     const mute = ref(false);
@@ -55,10 +69,11 @@
 
     //methods
     onMounted(async() => {        
-        const importMeta = await import(`../../data/${props.file}/info.js`);        
+        const importMeta = await import(`../../data/${props.book}/info.js`);        
         ({meta, data} = importMeta);        
 
         blank = {
+            id: 'cover',
             file: meta.cover,
             captions: meta.description,
             choices: [
@@ -104,7 +119,7 @@
 
         const nextPageFound = data.find(item => item.id === url);
         currentPage.value = nextPageFound;
-        if(!mute.value) playAudio(nextPageFound.id);
+        if(meta.hasAudio && !mute.value) playAudio(nextPageFound.id);
     }
 
     const muteAudio = () => {

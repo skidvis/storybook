@@ -1,0 +1,23 @@
+---
+import MainLayout from '../../templates/main.astro';
+import Player from '../../components/vue/Player.vue';
+import { getBooks } from '../../data/books/books';
+
+export const getStaticPaths = (() => {
+    const books = getBooks();
+    const paths = books.map(({root, slug, title}) => {
+        return {
+            params: { 
+                book: slug
+            },
+            props: { root, title }
+        }
+    });
+    return paths;
+});
+
+const { root, title } = Astro.props;
+---
+<MainLayout title={title}>
+    <Player client:load book={root} />
+</MainLayout>

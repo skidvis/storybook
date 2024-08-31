@@ -1,13 +1,36 @@
 const meta = {
   "title": "Skat, The Ninja Cat: Issue 1",
   "root": "skat1",
-  "cover": "a0.gif",
-  "badEndings": 7,
-  "goodEndings": 1,
+  "cover": "a0.gif",  
   "description": [
     "Step into the shadows with Skat, The Ninja Cat.",
     "In this world of ninja cats and cunning foes, nothing is as it seems. Will you choose stealth or strength? Loyalty or survival? Each decision could spell the difference between glory and doom. As you navigate this pulse-pounding journey, you'll find yourself entangled in a web of betrayal, friendship, and deadly consequences. The fate of Skat, the ShadowBlades, and perhaps the entire world rests in your hands. Are you ready to step into the shadows and uncover the twisting paths that await?"
-  ]
+  ],  
+  "authors":[
+    {
+      "name": "Skid Vis",
+      "url": "https://skidvis.com"
+    },
+    {
+      "name": "Vexx",
+      "url": null
+    }
+  ],
+  "artists": [
+    {
+      "name": "Vexx",
+      "url": null
+    }
+  ],
+  "copyright": [
+    {
+      "name": "Skid Vis",
+      "url": "https://skidvis.com"
+    }
+  ], 
+  "badEndings": 7,
+  "goodEndings": 1,
+  "hasAudio": true,
 }
 
 const data = [

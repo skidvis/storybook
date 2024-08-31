@@ -1,0 +1,72 @@
+---
+import '../styles/styles.css';
+const { title } = Astro.props;
+const metaTitle = title ? `${title} | MazeReader` : "MazeReader";
+---
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<title>{metaTitle}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Short+Stack&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Montserrat+Subrayada:wght@400;700&family=Short+Stack&display=swap" rel="stylesheet">
+		
+		<meta name="description" content="Explore MazeReader's immersive world of voice-narrated graphic novels. Make choices, shape your story, and experience interactive storytelling with multiple endings in our unique digital adventure books.">
+		<meta name="keywords" content="MazeReader, interactive graphic novels, choose your own adventure, voice-narrated stories, branching narrative, visual storytelling, multiple endings, gamebook experience">
+		<meta name="author" content="MazeReader">
+		
+		<!-- Open Graph Meta Tags for social media sharing -->
+		<meta property="og:title" content="MazeReader | Interactive Voice-Narrated Graphic Novels">
+		<meta property="og:description" content="Dive into MazeReader's immersive stories where your choices matter. Experience voice-narrated graphic novels with multiple endings.">
+		<meta property="og:image" content="https://www.mazereader.com/images/og-image.jpg">
+		<meta property="og:url" content="https://www.mazereader.com">
+		<meta property="og:type" content="website">
+		
+		<!-- Twitter Card Meta Tags -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="MazeReader | Interactive Voice-Narrated Graphic Novels">
+		<meta name="twitter:description" content="Dive into MazeReader's immersive stories where your choices matter. Experience voice-narrated graphic novels with multiple endings.">
+		<meta name="twitter:image" content="https://www.mazereader.com/images/twitter-image.jpg">
+		
+		<!-- Additional Meta Tags -->
+		<meta name="robots" content="index, follow">
+		<meta name="language" content="English">
+		<meta name="revisit-after" content="7 days">
+		<meta name="category" content="interactive fiction, digital storytelling">
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="/favicon.png">
+		
+		<!-- Apple Touch Icon -->
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		
+		<!-- Canonical URL -->
+		<link rel="canonical" href="https://www.mazereader.com">
+
+		<!-- Google Tag Manager -->
+		<script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-MVTSKJTQ');</script>
+		<!-- End Google Tag Manager -->
+	</head>
+	<body class="bg-black">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MVTSKJTQ"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		 <div class="flex flex-col h-screen">
+			<div class="header bg-slate-900 text-white font-bold pl-2 pt-1 montserrat-subrayada-bold">
+				<a href="/">Maze<span class="text-lime-500">Reader</span></a>
+			</div>
+			<div class="content flex-grow">
+                <slot />
+            </div>
+			<div class="footer bg-slate-900 text-white text-center">Copyright {new Date().getFullYear()} SharkJets - Made with ❤️ by Skid Vis</div>
+		 </div>		
+	</body>
+</html>
