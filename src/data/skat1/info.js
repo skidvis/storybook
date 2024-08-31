@@ -9,7 +9,7 @@ const meta = {
   "authors":[
     {
       "name": "Skid Vis",
-      "url": "https://skidvis.com"
+      "url": "https://www.skidvis.com"
     },
     {
       "name": "Vexx",
@@ -25,7 +25,7 @@ const meta = {
   "copyright": [
     {
       "name": "Skid Vis",
-      "url": "https://skidvis.com"
+      "url": "https://www.skidvis.com"
     }
   ], 
   "badEndings": 7,
