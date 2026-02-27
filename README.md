@@ -1,47 +1,101 @@
-# Astro Starter Kit: Minimal
+# MazeReader
 
-```sh
-npm create astro@latest -- --template minimal
+An interactive, choose-your-own-adventure graphic novel reader. Readers navigate branching narratives panel by panel, making choices that lead to multiple possible endings — from triumphant victories to tragic defeats. Features optional voice narration and a 3D panel tilt effect.
+
+**Live site:** [mazereader.com](https://www.mazereader.com)
+
+## Features
+
+- **Branching narrative engine** — Each panel presents choices that route to a different panel. Tracks good and bad endings per session.
+- **Comic panel viewer** — Displays GIF/JPG artwork with styled captions and a 3D tilt effect via VanillaTilt
+- **Optional audio narration** — Per-book toggle; plays matching MP3 clips for each panel when enabled (Issue 1 has audio, Issue 2 does not)
+- **Ending tracker** — Shows live counts of good and bad endings reached
+- **Responsive layout** — Tailwind-powered design works on mobile and desktop
+- **Google Analytics** — Tracks `book_finished` events with outcome (winner/bad) and final page ID
+
+## Installation
+
+```bash
+pnpm install
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+**Requirements:** Node.js ≥ 18, pnpm
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Usage
 
-## 🚀 Project Structure
+| Command | Action |
+|---|---|
+| `pnpm dev` | Start dev server at `http://localhost:4321` |
+| `pnpm build` | Type-check and build to `./dist/` |
+| `pnpm preview` | Preview the production build locally |
+| `pnpm astro` | Run Astro CLI commands |
 
-Inside of your Astro project, you'll see the following folders and files:
+## Adding a Book
 
-```text
+1. **Add artwork** — Create `public/<root>/` with panel images (GIF/JPG). If audio is needed, add `public/<root>/audio/<page-id>.mp3` files.
+
+2. **Create data file** — Add `src/data/<root>/info.js`:
+
+    ```js
+    const meta = {
+      title: "Book Title",
+      root: "bookname",
+      cover: "a0.jpg",
+      description: ["Tagline.", "Synopsis."],
+      authors: [{ name: "Author", url: null }],
+      artists: [{ name: "Artist", url: null }],
+      copyright: [{ name: "Owner", url: null }],
+      goodEndings: 1,
+      badEndings: 3,
+      hasAudio: false,
+    };
+
+    const data = [
+      {
+        id: "a0",
+        file: "a0.jpg",
+        captions: ["Panel caption."],
+        choices: [{ text: "Choice", url: "a1" }]
+      },
+      // Terminal pages use url: "winner" (good) or url: "bad"
+    ];
+
+    export { meta, data };
+    ```
+
+3. **Register book** — Add entry to `src/data/books/books.js`.
+
+## Project Structure
+
+```
 /
 ├── public/
+│   ├── skat1/          # Issue 1 panels (GIFs) + audio/
+│   └── skat2/          # Issue 2 panels (JPGs) + audio/
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── _app.ts         # Vue app entry (registers vue-gtag)
+│   ├── components/
+│   │   └── vue/
+│   │       ├── Library.vue   # Home page book grid
+│   │       └── Player.vue    # Interactive panel reader
+│   ├── data/
+│   │   ├── books/
+│   │   │   └── books.js      # Book registry
+│   │   ├── skat1/
+│   │   │   └── info.js       # Issue 1 meta + page tree
+│   │   └── skat2/
+│   │       └── info.js       # Issue 2 meta + page tree
+│   ├── helpers/
+│   │   └── slugify.js        # URL slug generator
+│   ├── pages/
+│   │   ├── index.astro       # Library home
+│   │   └── books/[book].astro # Book reader route
+│   └── templates/
+│       └── main.astro        # Shared layout
+├── astro.config.mjs
+└── tailwind.config.mjs
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Deployment
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Automatic deployment to GitHub Pages on push to `main` via `.github/workflows/deploy.yml`. Uses the official `withastro/action` and `actions/deploy-pages` actions with `pnpm@latest`.
